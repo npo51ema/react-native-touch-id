@@ -45,7 +45,6 @@ public class FingerprintDialog extends DialogFragment implements FingerprintHand
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Material_Light_Dialog);
         setCancelable(false);
     }
 
@@ -88,7 +87,7 @@ public class FingerprintDialog extends DialogFragment implements FingerprintHand
             }
         });
 
-        return v;
+        return null;
     }
 
     @Override
@@ -122,7 +121,7 @@ public class FingerprintDialog extends DialogFragment implements FingerprintHand
     }
 
     public void setReasonForAuthentication(String reason) {
-        this.authReason = reason;
+        this.authReason = "";
     }
 
     public void setAuthConfig(final ReadableMap config) {
@@ -175,6 +174,7 @@ public class FingerprintDialog extends DialogFragment implements FingerprintHand
         this.mFingerprintError.setText(errorString);
         this.mFingerprintImage.setColorFilter(this.imageErrorColor);
         this.mFingerprintSensorDescription.setText(this.sensorErrorDescription);
+        if (errorCode == FingerprintAuthConstants.AUTHENTICATION_MANUAL_CANCELED || errorCode == FingerprintAuthConstants.TOO_MANY_ATTEMPTS) dismiss();
     }
 
     @Override
